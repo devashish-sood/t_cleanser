@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export default function Home() {
   const [inputValue, setInputValue] = useState('');
-  const [expandedUrl, setExpandedUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleButtonClick = async () => {
@@ -24,38 +23,34 @@ export default function Home() {
         throw new Error(data.error || 'Failed to expand URL');
       }
 
-      setExpandedUrl(data.url);
+      // Automatically redirect to the expanded URL
+      window.location.href = data.url;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-      setExpandedUrl(null);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-bold mb-2">T Cleanser</h2>
-        <div className="flex gap-2">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-gray-50">
+      <div className="w-full max-w-md flex flex-col gap-6 items-center bg-white p-8 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold text-gray-800">Tiktok Link Cleanser</h2>
+        <div className="w-full flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="px-4 py-2 border rounded"
+            placeholder="Enter TikTok URL"
+            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <button
             onClick={handleButtonClick}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 font-medium"
           >
-            Go
+            Fix
           </button>
         </div>
         {error && (
-          <div className="text-red-500 text-sm">{error}</div>
-        )}
-        {expandedUrl && (
-          <div className="text-sm">
-            Expanded URL: <a href={expandedUrl} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">{expandedUrl}</a>
-          </div>
+          <div className="w-full p-3 bg-red-50 text-red-600 rounded-lg text-sm">{error}</div>
         )}
       </div>
     </div>

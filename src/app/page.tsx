@@ -34,6 +34,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="flex flex-col gap-4">
+      <h2 className="text-lg font-bold mb-2">T Cleanser</h2>
         <div className="flex gap-2">
           <input
             type="text"

@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import UrlUnshort from 'url-unshort';
-
-const unshortener = new UrlUnshort();
+// import UrlUnshort from 'url-unshort';
 
 export async function POST(request: Request) {
   try {
     const { url } = await request.json();
+    console.log(url);
 
     if (!url) {
       return NextResponse.json(
@@ -14,15 +13,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const expandedUrl = await unshortener.expand(url);
-    
-    if (!expandedUrl) {
-      return NextResponse.json(
-        { error: 'Could not expand URL' },
-        { status: 400 }
-      );
-    }
-
+    const t_response = await fetch(url);
+    console.log(t_response.url);
+    const expandedUrl = t_response.url.split('?')[0];
     return NextResponse.json({ url: expandedUrl });
   } catch (error) {
     console.error('Error expanding URL:', error);

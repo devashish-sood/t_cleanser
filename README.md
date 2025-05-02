@@ -1,3 +1,3 @@
 # t_cleanser
 
-Tiktok appends a url param to the end that makes it difficult to watch videos shared with you on the browser. This simple utility allows me to watch the occassional video my friends send me, without downloading the abhorrent app.
+Shared tiktok links redirect to a referrer link that tries to force you to download the app. This simple utility allows me to watch the occassional video my friends send me, without downloading the abhorrent app.
